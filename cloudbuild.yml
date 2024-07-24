@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/your-username/your-repo.git']
+    args: ['clone', 'https://github.com/mmaazkhan/node-repo.git']
     dir: '/workspace'
 
   - name: 'gcr.io/cloud-builders/npm'
