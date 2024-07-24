@@ -1,5 +1,5 @@
 options:
-  logs_bucket: gs://node-bucket-01
+  logging: CLOUD_LOGGING_ONLY
 
 steps:
   # Clone the repository
