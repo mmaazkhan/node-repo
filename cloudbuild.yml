@@ -28,3 +28,6 @@ steps:
       - 'your-vm-instance'
       - '--zone=your-zone'
       - '--command="cd /path/to/app && git pull && node app.js"'
+
+      options:
+  logging: CLOUD_LOGGING_ONLY
