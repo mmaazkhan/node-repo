@@ -29,5 +29,6 @@ steps:
       - '--zone=your-zone'
       - '--command="cd /path/to/app && git pull && node app.js"'
 
-      options:
+# Logging options
+options:
   logging: CLOUD_LOGGING_ONLY
