@@ -1,24 +1,30 @@
 steps:
+  # Step 1: Clone the repository
   - name: 'gcr.io/cloud-builders/git'
     args: ['clone', 'https://github.com/mmaazkhan/node-repo.git']
     dir: '/workspace'
 
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
-    dir: '/workspace/your-repo'
-
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'build']
-    dir: '/workspace/your-repo'
-
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args: ['cp', '-r', '.', 'gs://node-bucket-01/']
-    dir: '/workspace/your-repo'
-
-  - name: 'gcr.io/cloud-builders/bash'
+  # Step 2: Install Node.js (if necessary)
+  - name: 'gcr.io/cloud-builders/node'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        echo "Deploying to VM..."
-        gcloud compute ssh your-vm-instance --zone your-zone --command "cd /path/to/app && git pull && npm install && npm start"
+        echo "Installing Node.js..."
+        curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+
+  # Step 3: Run the application
+  - name: 'gcr.io/cloud-builders/node'
+    args:
+      - 'node'
+      - '/workspace/your-repo/app.js'
+
+  # Step 4: Deploy to Google Cloud VM
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'compute'
+      - 'ssh'
+      - 'your-vm-instance'
+      - '--zone=your-zone'
+      - '--command="cd /path/to/app && git pull && node app.js"'
